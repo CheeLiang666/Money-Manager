@@ -6,13 +6,13 @@ import pyrebase
 import json
 
 config = {
-    'apiKey': "AIzaSyBj8Wt2OiCzhCENBI8HnECgEAJr5-7s2aI",
-    'authDomain': "money-manager-da6a1.firebaseapp.com",
-    'databaseURL': "https://money-manager-da6a1.firebaseio.com",
-    'projectId': "money-manager-da6a1",
-    'storageBucket': "money-manager-da6a1.appspot.com",
-    'messagingSenderId': "50255334078",
-    'appId': "1:50255334078:web:1d98427345fd5b53"
+    'apiKey': "...",
+    'authDomain': "...",
+    'databaseURL': "...",
+    'projectId': "...",
+    'storageBucket': "...",
+    'messagingSenderId': "...",
+    'appId': "..."
 }
 
 firebase = pyrebase.initialize_app(config)
