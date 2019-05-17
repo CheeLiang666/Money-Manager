@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'mySite/account.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+</head>
+<body class="bg-image">
+    <div class="container-fluid">
+        <div>
+            <img src="{% static 'mySite/images/money_manager_3.png' %}" width="400"
+                height="350" alt="" style="position:absolute;top:130px;left:360px;">
+        </div>
+        <div class="d-flex justify-content-end h-100">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Sign In</h3>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend flex-fill">
+                                <span class="input-group-text">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <input id="signInEmail" type="email" class="form-control" placeholder="email" required>
+                            </div>
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend flex-fill">
+                                <span class="input-group-text">
+                                    <i class="fas fa-key"></i>
+                                </span>
+                                <input id="signInPass" type="password" class="form-control" pattern=".{4,}" 
+                                    title="4 characters minimum" placeholder="password" required>
+                            </div>
+                        </div>
+                        <div class="row align-items-center remember">
+                            <input type="checkbox">Remember Me
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Login" class="float-right login_btn">
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-center links">
+                        Don't have an account?<a href="#" data-toggle="modal" data-target="#signUpModal">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="signUpModal" role="dialog" aria-labelledby="signUpModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="signUpModalLabel">Sign Up</h5>
+                        <button type="close" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend flex-fill">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                    <input id="signUpName" type="text" class="form-control" placeholder="username"
+                                        onblur="displayUsernameEmptyMsg(this, 'emptyUsername');" required>
+                                </div>
+                            </div>
+                            <p id="emptyUsername" class="error-msg" hidden>Username must not be empty.</p>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend flex-fill">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                    <input id="signUpEmail" type="email" class="form-control" placeholder="email"
+                                        onblur="verifyEmail(this, 'errorSignUpEmail', 'signUpInvalidEmail');">
+                                </div>
+                            </div>
+                            <p id="errorSignUpEmail" class="error-msg" hidden>Email must not be empty.</p>
+                            <p id="signUpInvalidEmail" class="error-msg" hidden>Invalid email format.</p>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend flex-fill">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-key"></i>
+                                    </span>
+                                    <input id="signUpPass" type="password" class="form-control" placeholder="password"
+                                        onblur="validatePasswordLength(this, 'emptySignUpPass', 'invalidLengthSignUpPass');">
+                                </div>
+                            </div>
+                            <p id="emptySignUpPass" class="error-msg" hidden>Password must not be empty.</p>
+                            <p id="invalidLengthSignUpPass" class="error-msg" hidden>Password length must be greater than or equal to 4.</p>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend flex-fill">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-key"></i>
+                                    </span>
+                                    <input id="signUp2Pass" type="password" class="form-control" placeholder="confirm password"
+                                        onblur="validatePasswordLength(this, 'emptySignUp2Pass', 'invalidLengthSignUp2Pass');">
+                                </div>
+                            </div>
+                            <p id="emptySignUp2Pass" class="error-msg" hidden>Confirm password must not be empty.</p>
+                            <p id="invalidLengthSignUp2Pass" class="error-msg" hidden>Confirm password length must be greater than or equal to 4.</p>
+                            <div class="input-group form-group">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                                <button class="btn btn-primary" type="submit">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                        <button id="saveChanges" class="btn btn-primary" type="submit">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //Sign Up inputs validation.
+        var signUpEmail = document.getElementById("signUpEmail");
+        var signUpName =  document.getElementById("signUpName");
+        var signUpPass = document.getElementById("signUpPass");
+        var signUp2Pass = document.getElementById("signUp2Pass");
+        var btnSignUp = document.getElementById("saveChanges");
+        //error message.
+        var emptyUsername = document.getElementById("emptyUsername");
+        var emptySignUpEmail = document.getElementById("errorSignUpEmail");
+        var emptySignUpPass = document.getElementById("emptySignUpPass");
+        var emptySignUp2Pass = document.getElementById("emptySignUp2Pass");
+        var signUpInvalidEmail = document.getElementById("signUpInvalidEmail");
+        var invalidLengthSignUpPass = document.getElementById("invalidLengthSignUpPass");
+        var invalidLengthSignUp2Pass = document.getElementById("invalidLengthSignUp2Pass");
+
+        //Sign In inputs validation.
+        var signInEmail = document.getElementById("signInEmail");
+        var signInPass = document.getElementById("signInPass");
+
+        function isEmpty(inputField){
+            if (inputField.value === ""){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        function displayUsernameEmptyMsg(inputField, emptyId){
+            var emptyMsg = document.getElementById(emptyId);
+            if(isEmpty(inputField)){
+                emptyMsg.removeAttribute("hidden");
+            }
+            else{
+                emptyMsg.setAttribute("hidden", "");
+            }
+        }
+
+        function verifyEmail(inputField, emptyId, invalidEmailId){
+            var pattern = /(\w+\@\w+\.\w+)/g
+            var emptyMsg = document.getElementById(emptyId);
+            var invalidEmailMsg = document.getElementById(invalidEmailId)
+            if(isEmpty(inputField)){
+                invalidEmailMsg.setAttribute("hidden","");
+                emptyMsg.removeAttribute("hidden");
+            }
+            else{
+                emptyMsg.setAttribute("hidden", "");
+
+                if(!pattern.test(inputField.value)){
+                    invalidEmailMsg.removeAttribute("hidden");
+                }else{
+                    invalidEmailMsg.setAttribute("hidden","");
+                }
+            } 
+        }
+
+        function validatePasswordLength(inputField, emptyId, invalidLengthId){
+            var emptyMsg = document.getElementById(emptyId);
+            var invalidLengthMsg = document.getElementById(invalidLengthId)
+            if(isEmpty(inputField, emptyId)){
+                invalidLengthMsg.setAttribute("hidden", "");
+                emptyMsg.removeAttribute("hidden");
+            }else{
+                emptyMsg.setAttribute("hidden", "");
+
+                if(inputField.value < 4){
+                    invalidLengthMsg.removeAttribute("hidden");
+                }else{
+                    invalidLengthMsg.setAttribute("hidden", "");
+                }  
+            }
+        }
+
+        function enableSignUpBtn(){
+            if(isEmpty(signUpName) || isEmpty(signUpEmail) || isEmpty(signUpPass) || isEmpty(signUp2Pass)){
+                btnSignUp.disabled = true;
+            }
+            else{
+                if(emptyUsername.hasAttribute("hidden") && emptySignUpEmail.hasAttribute("hidden")
+                    && emptySignUpPass.hasAttribute("hidden") && emptySignUp2Pass.hasAttribute("hidden") 
+                    && signUpInvalidEmail.hasAttribute("hidden") && invalidLengthSignUpPass.hasAttribute("hidden") 
+                    && invalidLengthSignUp2Pass.hasAttribute("hidden")){
+                    btnSignUp.disabled = false;
+                }else{
+                    btnSignUp.disabled = true;
+                }
+            }
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>

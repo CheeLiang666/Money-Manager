@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'mySite/account.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+</head>
+<body class="bg-image">
+    <div class="container-fluid">
+        <div>
+            <img src="{% static 'mySite/images/money_logo_1.png' %}" width="400"
+                height="350" alt="" style="position:absolute;top:130px;left:360px;">
+        </div>
+        <div class="d-flex justify-content-end h-100">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Sign In</h3>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend flex-fill">
+                                <span class="input-group-text">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <input id="signInEmail" type="email" class="form-control" placeholder="email" required>
+                            </div>
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend flex-fill">
+                                <span class="input-group-text">
+                                    <i class="fas fa-key"></i>
+                                </span>
+                                <input id="signInPass" type="password" class="form-control" pattern=".{6,}" 
+                                    title="6 characters minimum" placeholder="password" required>
+                            </div>
+                        </div>
+                        <div class="row align-items-center remember">
+                            <input type="checkbox">Remember Me
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Login" class="float-right login_btn">
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-center links">
+                        Don't have an account?<a href="#" data-toggle="modal" data-target="#signUpModal">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="signUpModal" role="dialog" aria-labelledby="signUpModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div id="loader"></div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="signUpModalLabel">Sign Up</h5>
+                        <button type="close" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/signUp/" method="post" id="post-form">
+                            {% csrf_token %}
+                            <p id="csrf" hidden>{% csrf_token %}</p>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend flex-fill">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                    <input id="signUpName" name="signUpUsername" type="text" class="form-control" placeholder="username"
+                                       required>
+                                </div>
+                            </div>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend flex-fill">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                    <input id="signUpEmail" name="signUpEmail" type="email" class="form-control" placeholder="email"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend flex-fill">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-key"></i>
+                                    </span>
+                                    <input id="signUpPass" name="signUpPass" type="password" class="form-control" placeholder="password"
+                                        pattern=".{6,}" title="6 characters minimum" onchange="validatePassword();" required>
+                                </div>
+                            </div>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend flex-fill">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-key"></i>
+                                    </span>
+                                    <input id="signUp2Pass" type="password" class="form-control" placeholder="confirm password"
+                                       pattern=".{6,}" title="6 characters minimum" onkeyup="validatePassword();" required>
+                                </div>
+                            </div>
+                            <p id="signUpMessage"></p>
+                            <div class="form-group">
+                                <button id="saveChanges" class="btn btn-primary float-right" type="submit" style="margin-left: 10px;">Save Changes</button>
+                                <button class="btn btn-secondary float-right" type="button" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="modal fade" id="signUpMessageModal" role="dialog" aria-labelledby="signUpMessageModal"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p id="message"></p>
+                        <button id="btnSignUpMessage" class="btn btn-primary" type="button">Okay</button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+    <script>
+        //Sign Up inputs validation.
+        var signUpEmail = document.getElementById("signUpEmail");
+        var signUpName =  document.getElementById("signUpName");
+        var signUpPass = document.getElementById("signUpPass");
+        var signUp2Pass = document.getElementById("signUp2Pass");
+        var btnSignUp = document.getElementById("saveChanges");
+        var loader = document.getElementById("loader");
+
+        //Sign In inputs validation.
+        var signInEmail = document.getElementById("signInEmail");
+        var signInPass = document.getElementById("signInPass");
+
+        function validatePassword(){
+            if(signUpPass.value !== signUp2Pass.value){
+                signUp2Pass.setCustomValidity("Passwords Don't Match.");
+            }
+            else{
+                signUp2Pass.setCustomValidity("");
+            }
+        }
+
+        document.getElementById("post-form").addEventListener("submit", function(e){
+            e.preventDefault();
+            loader.style.display = "block";
+            const init = {
+                method: "POST",
+                mode: "cors",
+                cache: "no-cache",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": document.querySelector("#csrf input").value
+                },
+                body: JSON.stringify({
+                    username: signUpName.value,
+                    email: signUpEmail.value,
+                    password: signUpPass.value
+                })
+            }
+            
+            var request = new Request("signUp/", init);
+            
+            fetch(request)
+            .then(function(response){
+                if(response.ok){
+                    console.log("Fetching.")
+                    return response.json();
+                }
+                throw new Error("Failed to fetch sign up response.");
+            }).then(function(data){
+                loader.style.display = "none";
+                var result = data.response;
+                var message = document.getElementById("signUpMessage");
+                message.innerHTML = result.message;
+                if(result.status === 1){
+                    if (message.classList.contains("error-msg")){
+                        message.classList.remove("error-msg");
+                    }
+                    message.classList.add("success-msg");
+                }
+                else{
+                    if (message.classList.contains("success-msg")){
+                        message.classList.remove("success-msg");
+                    }
+                    message.classList.add("error-msg");
+                }
+            });
+        });
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>
